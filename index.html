@@ -66,12 +66,24 @@
     
     <div class="row" id='graphBlock'>
       <div class="col">
-        <div class="row">
-          <div class="col d-flex justify-content-center">
+        <div class="row" id="graphrow">
+          <div class="col col-sm-3 align-self-center">
+              <div class='StatGroup'>
+                <p id='CentroidText' class='infoText'>Centroids: 3</p>
+                <p id='IterationsText' class='infoText'>Iterations Run: 0</p>
+                <p id='CentroidDeltaText' class="infoText">Last Centroid Delta: N/A</p>
+              </div>
+          </div>
+          <div class="col col-sm-6">
             <div id='graph'></div>
+          </div>
+          <div class="col col-sm-3">
+            <!--Col for spacing -->
           </div>
         </div><br />
         <div class="row">
+          <div class"col d-flex justify-content-center my-auto mx-auto">
+          </div>
           <div class="col d-flex justify-content-center my-auto mx-auto">          
             <input id='step' type='button' value='Step' class="btn btn-outline-primary"/>
             <input id='runThrough' type='button' value='Run Through' class="btn btn-outline-primary"/>

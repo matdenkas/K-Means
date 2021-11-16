@@ -10,6 +10,17 @@ TODO::CCO code
 $(document).ready(function () {
   const canvas = $('#canvas')[0];
   const ctx = canvas.getContext('2d');
+  const incrementor = { //obj that keeps track of how many steps we have done
+    incremnet: function() {
+      this.val += 1;
+      $('#IterationsText').text('Iterations Run: ' + this.val);
+    },
+    reset: function() {
+      this.val = 0;
+      $('#IterationsText').text('Iterations Run: ' + this.val);
+    },
+    val: 0,
+  }
   var globalImg = {};
   
   $("#imageInput").change(function() {
@@ -17,19 +28,31 @@ $(document).ready(function () {
   });
 
   $('#step').click(function() {
-    kMeanDriver();
+    distance = kMeanDriver();
+    $('#CentroidDeltaText').text('Last Centroid Delta: ' + distance);
+    incrementor.incremnet();
   });
 
   $('#runThrough').click(function() {
-    for(var i = 0; i < 100; i++){
-      kMeanStep();
+    let distance = 100;//intialization value > 0.5
+    let itterations = 0;
+    while(distance > 0.5 && itterations < 100) {
+      distance = kMeanStep();
+      $('#CentroidDeltaText').text('Last Centroid Delta: ' + distance);
+      incrementor.incremnet();
     }
     kMeanDriver();
   });
 
   $('#centAmntSlider').change(function() {
+    $('#CentroidText').text($('#centAmntSlider').val() + ' centroids'); //update text
     clearOutputCanvases();
-    init();
+    try {
+      init();
+    }
+    catch(TypeError){
+      console.warn("No image present, won't init");
+    }
   });
 
   GlobalImage = undefined;
@@ -50,6 +73,9 @@ $(document).ready(function () {
   }
 
   function init(img) {
+    incrementor.reset(); //clear past iterations
+    $('#CentroidDeltaText').text('Last Centroid Delta: N/A');
+
     img = GlobalImage;
     canvas.width = img.width;
     canvas.height = img.height;
@@ -143,10 +169,11 @@ $(document).ready(function () {
 
 
   function kMeanDriver(){
-    kMeanStep();
+    distance = kMeanStep();
     parseCentroidData();
     plot();
     populateSegmantationCanvases();
+    return distance;
   }
 
 
@@ -223,16 +250,21 @@ $(document).ready(function () {
       m = minIndex(arr);
       centroids[m].family.push(i);
       GlobalPixelData.centroidIndex[i] = m;
-
     }
     
     //for each centroid calculate its new location by the avg of its family
+    var arr = [];
     for(var i = 0; i < centroids.length; i++){
+      oldLoc = centroids[i].loc;
       centroids[i].loc = famAvg(centroids[i].family, GlobalPixelData);
+      arr.push(dist(oldLoc, centroids[i].loc));
     }
 
     GlobalCentroidData = centroids;
+    return arr[maxIndex(arr)];
   }
+
+
 
 
   function populateSegmantationCanvases() {
@@ -303,6 +335,18 @@ function minIndex(array){
     }
   }
   return smallestIndex;
+}
+
+function maxIndex(array){
+  let largest = array[0];
+  let largestIndex = 0;
+  for(var i = 0; i < array.length; i++){
+    if(array[i] > largest){
+      largest = array[i];
+      largestIndex = i;
+    }
+  }
+  return largestIndex;
 }
 
 function prepPixelDataForPlot(pixelData) {
