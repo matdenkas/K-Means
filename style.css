@@ -1,0 +1,103 @@
+
+
+body {
+  background-color: #303030;
+}
+
+#sunflower {
+  text-align: center;
+  background-color: #ebaeae;
+  font-size: 9pt;
+}
+
+.infoText {
+  font-family: "Times New Roman";
+  font-size:100%;
+  color: #ebaeae;
+  margin-left: 10px;
+}
+
+#title {
+  font-family: "Times New Roman";
+  font-size:300%;
+}
+
+#graphBlock {
+  background-color: #303030;
+}
+
+#imageInput {
+  width: 224px;
+  background-color: #ebaeae;
+  border-radius: 25px;
+  padding: 10px;
+}
+
+.StatGroup {
+  border:2px dotted #ebaeae;
+  margin: 10px;
+  padding: 10px;
+}
+
+
+.btn {
+  margin-right: 15px;
+  border-color: #ebaeae; 
+  color: #ebaeae; 
+}
+
+.btn:hover {
+  background-color: #ebaeae;
+  border-color: #ebaeae;
+  color: #303030; 
+}
+
+.btn:focus, .btn:active {
+   outline: none !important;
+   box-shadow: none;
+}
+
+/*range slider CLASS */
+.slider {
+  -webkit-appearance: none;
+  width: 20%;
+  height: 5px;
+  border-radius: 5px;  
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%; 
+  background: #ebaeae;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: #ebaeae;
+  cursor: pointer;
+} 
+
+#graphrow {
+  min-height: 450px;
+}
+
+/* Card CLASS */
+.imgCard {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+
+.imgCard:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
